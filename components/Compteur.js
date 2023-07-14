@@ -1,5 +1,5 @@
 import Button from "./Button.js";
-import Component from "/../core/components.js";
+import Component from "../core/Components.js";
 
 export default class CompteurComponent extends Component {
   
