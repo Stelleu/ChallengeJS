@@ -9,29 +9,47 @@ export default class Input extends Component{
 
     render(){
         const baseStyle = {
-            borderRadius: "15px",
-            padding: "10px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
+            display: "block",
+            width: "100%",
+            padding:" 0.375rem 0.75rem",
+            fontSize: "1rem",
+            color: "#212529",
+            backgroundColor:"#fff",
+            border: "1px solid #dee2e6",
+            borderRadius: "0.375rem",
         }
         const style = this.props.style || {};
-        const title = this.props.title || "";
-        const { type, onChange,value,name } = this.props;
+        const { type,title, onChange,value,name } = this.props;
 
         return {
-            type: "input",
-            attributes : {
-                name : name,
-                type: type,
-                value: this.props.value ?? "" ,
-                style : {...baseStyle, ...style},
-                "data-id": this.idAttribute,
-                placeholder : title ,
-            },
-            events:{
-                change : onChange
-            },
-            children:[title]
+
+            type: "div",
+            class: "mb-3 ",
+            attributes: { style: { marginBottom: "10px" } },
+            children: [
+                {
+                    type: "label",
+                    class:"form-label my-3",
+                    attributes: { for: name, style: { display: "block", marginBottom: "5px" } },
+                    children: [title || ""],
+                },
+                {
+                    type: "input",
+                    attributes: {
+                        name: name,
+                        type: type,
+                        class: "form-control",
+                        required:true,
+                        value: `${value}`,
+                        // style: { ...baseStyle, ...style },
+                        "data-id": this.idAttribute,
+                        placeholder: title || "",
+                    },
+                    events: {
+                        change: onChange || null,
+                    },
+                },
+            ]
         }
     }
 }

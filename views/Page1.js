@@ -1,4 +1,4 @@
-import { BrowserLink } from "../components/BrowserRouter.js";
+import BrowserLink from "../components/BrowserLink.js";
 export default function Page1() {
   const DATA_KEY = "data";
   let data = localStorage.getItem(DATA_KEY);
@@ -11,7 +11,7 @@ export default function Page1() {
   return {
     type: "div",
     children: [
-      BrowserLink("Page 2", "/page2"),
+      new BrowserLink("Page 2", "/page2"),
       {
         type: "table",
         children: [

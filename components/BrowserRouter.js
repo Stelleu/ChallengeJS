@@ -1,6 +1,5 @@
 import Component from "../core/Components.js";
 import DomRenderer from "../core/DomRenderer.js";
-import Button  from "./Button.js";
 import { Link } from "./Link.js";
 
 /*let routerBasePath;
@@ -20,7 +19,7 @@ export default class BrowserRouter extends Component {
     }
     this.handlePopState = this.handlePopState.bind(this);
     this.handleLinkClick = this.handleLinkClick.bind(this);
-  
+
   }
 
   handlePopState(){
@@ -161,38 +160,60 @@ export function BrowserLink(title, link,routerBasePath) {
 
 let routerBasePath;
 
-export default function BrowserRouter(routes, rootElement, baseUrl = "") {
-  routerBasePath = baseUrl;
-  const pathname = location.pathname.replace(routerBasePath, "");
-  rootElement.appendChild(DomRenderer(routes[pathname]()));
-  const oldPushState = history.pushState;
-  history.pushState = function (data, unused, url) {
-    oldPushState.call(history, data, unused, url);
+// export default function BrowserRouter(routes, rootElement, baseUrl = "") {
+//   routerBasePath = baseUrl;
+//   const pathname = location.pathname.replace(routerBasePath, "");
+//   rootElement.appendChild(DomRenderer(routes[pathname]()));
+//   const oldPushState = history.pushState;
+//   history.pushState = function (data, unused, url) {
+//     oldPushState.call(history, data, unused, url);
+//     window.dispatchEvent(new Event("popstate"));
+//   };
+//
+//   window.addEventListener("popstate", function () {
+//     const pathname = location.pathname.replace(routerBasePath, "");
+//
+//     rootElement.replaceChild(
+//       DomRenderer(routes[pathname]()),
+//       rootElement.childNodes[0]
+//     );
+//   });
+//   return DomRenderer(routes[pathname]())
+// }
+export default class BrowserRouter extends Component {
+  constructor(routes, rootElement, baseUrl = "") {
+    super();
+    this.routes = routes;
+    this.rootElement = rootElement;
+    this.baseUrl = baseUrl;
+    this.pathname = location.pathname.replace(this.baseUrl, "");
+    this.oldPushState = this.handlePushState
+    window.addEventListener("popstate", this.handlePopState.bind(this));
+    this.render();
+  }
+
+  handlePushState(data, unused, url) {
+    console.log("ok")
+    this.oldPushState.call(history, data, unused, url);
     window.dispatchEvent(new Event("popstate"));
-  };
+  }
 
-  window.addEventListener("popstate", function () {
-    const pathname = location.pathname.replace(routerBasePath, "");
+  handlePopState() {
 
-    rootElement.replaceChild(
-      DomRenderer(routes[pathname]()),
-      rootElement.childNodes[0]
-    );
-  });
-  return DomRenderer(routes[pathname]())
+    this.pathname = location.pathname.replace(this.baseUrl, "");
+    this.render()
+
+  }
+
+  render = () => {
+    const routeComponent = this.routes[this.pathname];
+    if (typeof routeComponent === "function") {
+      const element = DomRenderer( new routeComponent());
+      this.rootElement.innerHTML = "";
+      this.rootElement.appendChild(element);
+      console.log(element)
+      return element
+    }
+  }
 }
 
-export function BrowserLink(title, link) {
-  const realLink = routerBasePath + link;
-  return Link(title, realLink, (event) => {
-    event.preventDefault();
-    history.pushState({}, undefined, realLink);
-  })
-};
-export function BrowserButton( button) {
-  const realLink = routerBasePath + button;
-  return new Button( realLink, (event) => {
-    event.preventDefault();
-    history.pushState({}, undefined, realLink);
-  });
-}

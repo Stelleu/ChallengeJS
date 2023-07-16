@@ -6,23 +6,22 @@ export default class Button extends Component {
   }
 
   render() {
-     const baseStyle = {
-     backgroundColor: "grey",
-     borderRadius: "5px",
-  }
-  const title = this.props.title || "Button";
-  const style = this.props.style || {};
-  const type = this.props.type || "";
+    const title = this.props.title || "Button";
+    const style = this.props.style || {};
+    const type = this.props.type || "";
+    const onClick = this.props.click
+    const onSubmit = this.props.submit
     return {
       type: "button",
+      class:"btn btn-outline-dark mx-3",
       attributes: {
         type: type,
-        style: { ...baseStyle, ...style },
-        "data-id": this.idAttribute
+        "data-id": this.idAttribute,
+        id: this.idAttribute
       },
       events: {
-        click: this.props.onClick ?? null,
-        submit: onsubmit
+        click: onClick || null,
+        submit: onSubmit || null,
 
       },
       children: [title],

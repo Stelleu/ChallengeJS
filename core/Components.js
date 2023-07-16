@@ -9,29 +9,29 @@ export default class Component {
         this.state = {}
         this.oldState = null;
         this.oldRender = null;
-        this.id = this.generateId();
+        this.id =   this.generateId() || props.id ;
 
     }
-      
+
     setElement(element){
         this.element = element;
-    }//rendre observable cree une fonction 
+    }//rendre observable cree une fonction
 
     display = () => {
-                //Si modification => on recupere le render de l'element ?? 
+        //Si modification => on recupere le render de l'element ??
         if (this.shouldUpdate()) {
-          const newElement = generateStructure(this.render());
-          const element = document.querySelector('[data-id="' + this.id + '"]');
+            const newElement = generateStructure(this.render());
+            const element = document.querySelector('[data-id="' + this.id + '"]');
             element.replaceWith(newElement);
-          this.oldState = newElement;
-          this.oldRender = newElement;
-          return newElement;
+            this.oldState = newElement;
+            this.oldRender = newElement;
+            return newElement;
         }
-      }
-      
-     render(){
-         throw new Error("La méthode render() doit être implémentée.");
-     }
+    }
+
+    render(){
+        throw new Error("La méthode render() doit être implémentée.");
+    }
 
 
     setState(partialState){
@@ -40,8 +40,8 @@ export default class Component {
         this.display();
     }
 
-      // verification si modification
-      shouldUpdate = () =>{
+    // verification si modification
+    shouldUpdate = () =>{
         return (
             JSON.stringify(this.state) !== JSON.stringify(this.oldState)
         );

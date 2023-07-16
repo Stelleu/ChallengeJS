@@ -1,15 +1,16 @@
-import { BrowserLink } from "../components/BrowserRouter.js";
 import Button from "../components/Button.js";
 import Compteur from "../components/Compteur.js";
 import { Link } from "../components/Link.js";
+import BrowserLink from "../components/BrowserLink.js";
+
 
 export default function Page2() {
   return {
     type: "div",
     children: [
-      BrowserLink("Page 1", "/page1"),
-      Link("Index", "/"),
-      Link("Page 1", "/articles/page1"),
+      new BrowserLink("Page 1", "/page1"),
+      new Link("Index", "/"),
+      new Link("Page 1", "/articles/page1"),
       {
         type: "h1",
         children: ["Coucou"],

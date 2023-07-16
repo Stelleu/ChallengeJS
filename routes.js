@@ -5,5 +5,5 @@ import Page3 from "./views/Page3.js";
 export default {
   "/page1": Page1,
   "/page2": Page2,
-  "/": Page3,
+  "/ChallengeJS/": Page3,
 };

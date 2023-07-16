@@ -1,19 +1,26 @@
-export function Link(title, link, onClick) {
-  const style = {
-    color: "cyan",
-    textDecoration: "none",
-  };
-  const events = {};
-  if (onClick) {
-    events.click = onClick;
+import Component from "../core/Components.js";
+
+export class Link extends Component {
+  constructor(title, link, onClick) {
+    super();
+    this.title = title
+    this.link = link
+    this.onClick = onClick
+
   }
-  return {
-    type: "a",
-    attributes: {
-      href: link,
-      style: style,
-    },
-    events: events,
-    children: [title],
-  };
+  render(){
+    const events = {};
+    if (this.onClick) {
+      events.click = this.onClick;
+    }
+    return {
+      type: "a",
+      class: "btn btn-outline-dark",
+      attributes: {
+        href: this.link ,
+      },
+      events: events,
+      children: [this.title],
+    };
+  }
 }

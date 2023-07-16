@@ -18,9 +18,10 @@ export default class FormComponent extends Component{
     }
 
 
-
     render() {
-        const { action,method, style } = this.props;
+        const { action = "saveData.php",
+            method ="POST",
+            style } = this.props;
         return {
             props:{},
             type: "form",
@@ -68,8 +69,10 @@ export default class FormComponent extends Component{
                     onClick : (event) => {
                          event.preventDefault();
                         const form = document.getElementById(this.idAttribute)
+                        const url = form.getAttribute('action');
                         const formData = new FormData(form)
                         const formDataObject = Object.fromEntries(formData);
+                        console.log(url)
                         console.log(formDataObject)
 
                     }

@@ -1,73 +1,55 @@
-import { BrowserLink, BrowserButton } from "../components/BrowserRouter.js";
-import Button from "../components/Button.js";
-import Input from "../components/Input.js";
-import { Link } from "../components/Link.js";
-import Compteur from "../components/Compteur.js";
+import BrowserLink from "../components/BrowserLink.js";
+import Component from "../core/Components.js";
+import {Welcome} from "../components/Welcome.js";
+import {Step1} from "../components/Step1.js";
+import {Step2} from "../components/Step2.js";
+import MultiStepForm from "../components/MultiStepForm.js";
 import CompteurComponent from "../components/Compteur.js";
-import FormComponent from "../components/Form.js";
-export default function Page3() { 
+export default class Page3 extends Component  {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: "Step 3 ",
+      currentForm: 1,
+      totalForms: 3,
+
+    }
+  }
+  handleFormChange = (formNumber) => {
+    const { currentForm, totalForms } = this.state;
+    const nextForm = onNextForm(currentForm, totalForms);
+    this.setState({ currentForm: nextForm });
+    console.log(this.state)
+  };
+  render() {
+    const { currentForm } = this.state
     return {
       type: "div",
+      class: "container ",
+      id: this.idAttribute,
       children: [
-        BrowserLink("Page 1", "/page1"),
-        // Link("Index", "/"),
         {
-          type: "h1",
-          
-          children: ["Coucou"],
-        },
-        {
-          type: "h2",
-          
-          children: ["Bonsoir"],
-        },
-        {
-          type: "h3",
-          
-          children: ["Tout le monde"],
-        },
-        {
-          type: "p",
-          
-          children: ["Ici le javascript"],
-        },
-        new CompteurComponent({ initialValue: 10 }).render(),
-        new FormComponent({
-          action: "",
-          method: "POST",
-          style: { padding: "20px" },
-          children:[
-            new Input({
-              title: "Database Name",
-              style: { width: "200px" },
-          }),"Database Name",
-          /*new Input({
-              title: "Username",
-              value : "",
-              style: { width: "200px" },
-          }),"Username",
-          new Input({
-              title: "Password",
-              value : "",
-              style: { width: "200px" },
-          }),"Password",
-          new Input({
-              title: "Database Host",
-              value : "",
-              style: { width: "200px" },
-          }),"Database Host",
-          new Input({
-              title: "Table Prefix",
-              value : "",
-              style: { width: "200px" },
-          }),"Table Prefix",*/
-          new Button({
-              title:"submit",
-              style:{ backgroundColor: "bleu"},
-          })
+          type: "div",
+          class: "position-absolute top-50 start-50 translate-middle",
+          children: [
+            {
+              type: "div",
+              class: "row ",
+              children: [
+                {
+                  type: "div",
+                  class: "card text-center px-5 mx-5",
+                  id:this.idAttribute,
+                  attributes:{style: {borderColor: "rgb(163 163 163)" } },
+                  children: [
+                    new MultiStepForm(),
+                  ],
+                },
+              ]
+            }
           ]
-        }).render(),
-        
+        }
       ]
-    };
+    } ;
   }
+}
