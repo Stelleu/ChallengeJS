@@ -1,6 +1,5 @@
 import BrowserRouter from "./components/BrowserRouter.js";
 import { domRender } from "./core/DomRenderer.js";
-import { PageBuilderComponent } from "./components/PageBuilder.js";
 import routes from "./routes.js";
 import Component from "./core/Components.js";
 

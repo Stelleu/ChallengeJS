@@ -1,4 +1,4 @@
-import { Link } from "./Link.js";
+import  { Link }  from "./Link.js";
 
 
 export default class BrowserLink extends Link {

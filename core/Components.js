@@ -30,6 +30,7 @@ export default class Component {
     }
 
     render(){
+        
         throw new Error("La méthode render() doit être implémentée.");
     }
 

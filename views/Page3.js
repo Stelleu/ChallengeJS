@@ -4,7 +4,6 @@ import {Welcome} from "../components/Welcome.js";
 import {Step1} from "../components/Step1.js";
 import {Step2} from "../components/Step2.js";
 import MultiStepForm from "../components/MultiStepForm.js";
-import CompteurComponent from "../components/Compteur.js";
 export default class Page3 extends Component  {
   constructor(props) {
     super(props);

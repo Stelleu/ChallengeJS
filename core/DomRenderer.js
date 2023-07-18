@@ -5,16 +5,7 @@ export default function generateStructure(structure) {
     const element = generateStructure(structure.render())
     structure.element = element;
     return element;
-    // structure.observe(()=>{
-    //   if(element && element.parentNode){
-    //     element.parentNode.replaceChild(structure,element);
-    //   }
-    // this.element = newElement;
-    // this.oldRender = newElement
-    // return newElement;
-    // })
-
-  }else{
+  } else{
     const element = document.createElement(structure.type);
     if (structure.attributes) {
       for (let attrName in structure.attributes) {
@@ -51,12 +42,12 @@ export default function generateStructure(structure) {
 
 export const domRender = {
   render : (element, domElement, props = {}) => {
-    const component = new Component(props)
-    component.setElement(domElement)
-    var newElement = component.display();
+    const component = new Component(props);
+    component.setElement(domElement);
+    const newElement = generateStructure(component.render());
     domElement.replaceChild(newElement,component.element);
     component.element = newElement;
-    domElement.appendChild(component.element)
-  }
+    // domElement.appendChild(component.element)
+  },
 
 }
